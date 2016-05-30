@@ -157,7 +157,7 @@ contract SampleOfferWithoutReward {
     }
 
     // "fire the contractor"
-    function returnRemainingEther() onlyClient {
+    function returnRemainingEther() noEther onlyClient {
         originalClient.DAOrewardAccount().call.value(this.balance)();
     }
 
