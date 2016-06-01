@@ -67,7 +67,6 @@ contract SampleOfferWithoutReward {
     uint dateOfSignature;
     DAO client; // address of DAO
     DAO originalClient; // address of DAO who signed the contract
-    bool isContractValid;
 
     modifier onlyClient {
         if (msg.sender != address(client))
@@ -138,7 +137,7 @@ contract SampleOfferWithoutReward {
     }
 
     function getIsContractValid() noEther constant returns (bool) {
-        return isContractValid;
+        return this.balance > 0;
     }
 
     function sign() {
@@ -149,7 +148,6 @@ contract SampleOfferWithoutReward {
         if (!contractor.send(oneTimeCosts))
             throw;
         dateOfSignature = now;
-        isContractValid = true;
         lastPayment = now;
     }
 
@@ -160,8 +158,7 @@ contract SampleOfferWithoutReward {
 
     // "fire the contractor"
     function returnRemainingEther() noEther onlyClient {
-        if (originalClient.DAOrewardAccount().call.value(this.balance)())
-            isContractValid = false;
+        originalClient.DAOrewardAccount().call.value(this.balance)();
     }
 
     // Withdraw to the Contractor.
