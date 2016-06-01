@@ -25,7 +25,7 @@ along with the DAO.  If not, see <http://www.gnu.org/licenses/>.
 
 import "./SampleOfferWithoutReward.sol";
 
-contract SampleOffer is SampleOfferWithoutReward {
+contract SampleOffer is Offer {
 
     uint rewardDivisor;
     uint deploymentReward;
@@ -37,7 +37,7 @@ contract SampleOffer is SampleOfferWithoutReward {
         uint _totalCosts,
         uint _oneTimeCosts,
         uint128 _minDailyWithdrawLimit
-    ) SampleOfferWithoutReward(
+    ) Offer(
         _contractor,
         _client,
         _hashOfTheProposalDocument,
